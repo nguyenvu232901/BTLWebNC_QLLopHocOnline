@@ -1,24 +1,53 @@
+using BTLWebNC_QLLopHocOnline.Databases;
+using BTLWebNC_QLLopHocOnline.Interfaces;
 using BTLWebNC_QLLopHocOnline.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace BTLWebNC_QLLopHocOnline.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(DatabaseContext DB, ISessionService Session) : BaseController(DB)
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        [HttpGet]
+        [Route("/")]
+        public IActionResult Index()
         {
-            _logger = logger;
+            var user = Session.CurrentUser();
+
+            if (user == null)
+                return RedirectToAction("LoginPage", "Login");
+
+            List<CourseModel> courses;
+
+            if (user.Role == UserModel.ROLE_ADMIN)
+            {
+                courses = DB.Courses.ToList();
+            }
+            else
+            {
+                var query = from c in DB.Set<CourseModel>()
+                            join eu in DB.Set<CourseUserModel>()
+                                on c.Id equals eu.CourseId
+                            where eu.UserId == user.Id
+                            select c;
+
+                courses = query.ToList();
+            }
+
+            return View(courses);
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [Route("/calendar")]
+        public IActionResult Calendar()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        [Route("/sandbox")]
+        public IActionResult Sandbox()
         {
             return View();
         }
@@ -29,4 +58,5 @@ namespace BTLWebNC_QLLopHocOnline.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
 }

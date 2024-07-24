@@ -1,32 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace BTLWebNC_QLLopHocOnline.Models
-{
-    [Table("CourseUsers")]
-    [PrimaryKey(nameof(Id))]
-    public class CourseUserModel
-    {
-        public const string ROLE_STUDENT = "student";
+namespace BTLWebNC_QLLopHocOnline.Models;
 
-        public const string ROLE_TEACHER = "teacher";
+[Table("CourseUsers")]
+[PrimaryKey(nameof(Id))]
+public class CourseUserModel {
+	public const string ROLE_STUDENT = "student";
 
-        [Key]
-        public int Id { get; set; }
+	public const string ROLE_TEACHER = "teacher";
 
-        [ForeignKey(nameof(User))]
-        public required int UserId { get; set; }
+	[Key]
+	public int Id { get; set; }
 
-        public UserModel? User { get; set; }
+	[ForeignKey(nameof(User))]
+	public required int UserId { get; set; }
 
-        [ForeignKey(nameof(Course))]
-        public required int CourseId { get; set; }
+	public UserModel? User { get; set; }
 
-        public CourseModel? Course { get; set; }
+	[ForeignKey(nameof(Course))]
+	public required int CourseId { get; set; }
 
-        [DataType(DataType.Text)]
-        [MaxLength(8)]
-        public required string Role { get; set; } = ROLE_STUDENT;
-    }
+	public CourseModel? Course { get; set; }
+
+	[DataType(DataType.Text)]
+	[MaxLength(8)]
+	public required string Role { get; set; } = ROLE_STUDENT;
 }

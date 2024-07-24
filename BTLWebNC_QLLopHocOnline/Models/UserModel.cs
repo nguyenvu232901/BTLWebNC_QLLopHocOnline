@@ -1,64 +1,64 @@
-﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using BTLWebNC_QLLopHocOnline.Databases;
+using Microsoft.EntityFrameworkCore;
 
-namespace BTLWebNC_QLLopHocOnline.Models
-{
-    [Table("Users")]
-    [PrimaryKey(nameof(Id))]
-    [Index(nameof(Username), IsUnique = true)]
-    public class UserModel
-    {
-        public const string ROLE_USER = "user";
+namespace BTLWebNC_QLLopHocOnline.Models;
 
-        public const string ROLE_TEACHER = "teacher";
+[Table("Users")]
+[PrimaryKey(nameof(Id))]
+[Index(nameof(Username), IsUnique = true)]
+public class UserModel {
 
-        public const string ROLE_ADMIN = "admin";
+	public const string ROLE_USER = "user";
 
-        [Key]
-        public int Id { get; set; }
+	public const string ROLE_TEACHER = "teacher";
 
-        [Display(Name = "Tên tài khoản")]
-        [DataType(DataType.Text)]
-        [MaxLength(32)]
-        public required string Username { get; set; }
+	public const string ROLE_ADMIN = "admin";
 
-        [Display(Name = "Họ tên")]
-        [DataType(DataType.Text)]
-        [MaxLength(32)]
-        public required string Name { get; set; }
+	[Key]
+	public int Id { get; set; }
 
-        [Display(Name = "Mật khẩu")]
-        [DataType(DataType.Password)]
-        [MaxLength(128)]
-        [JsonIgnore]
-        public string? Password { get; set; }
+	[Display(Name = "Tên tài khoản")]
+	[DataType(DataType.Text)]
+	[MaxLength(32)]
+	public required string Username { get; set; }
 
-        [Display(Name = "Ngày sinh")]
-        [DataType(DataType.DateTime)]
-        public required DateTime DOB { get; set; }
+	[Display(Name = "Họ tên")]
+	[DataType(DataType.Text)]
+	[MaxLength(32)]
+	public required string Name { get; set; }
 
-        [Display(Name = "Số điện thoại")]
-        [DataType(DataType.PhoneNumber)]
-        [MaxLength(14)]
-        public required string Phone { get; set; }
+	[Display(Name = "Mật khẩu")]
+	[DataType(DataType.Password)]
+	[MaxLength(128)]
+	[JsonIgnore]
+	public string? Password { get; set; }
 
-        [Display(Name = "Email")]
-        [DataType(DataType.EmailAddress)]
-        [MaxLength(32)]
-        public required string Email { get; set; }
+	[Display(Name = "Ngày sinh")]
+	[DataType(DataType.DateTime)]
+	public required DateTime DOB { get; set; }
 
-        [Display(Name = "Địa chỉ")]
-        [DataType(DataType.Text)]
-        [MaxLength(128)]
-        public required string Address { get; set; }
+	[Display(Name = "Số điện thoại")]
+	[DataType(DataType.PhoneNumber)]
+	[MaxLength(14)]
+	public required string Phone { get; set; }
 
-        [DataType(DataType.Text)]
-        [MaxLength(8)]
-        public required string Role { get; set; } = ROLE_USER;
+	[Display(Name = "Email")]
+	[DataType(DataType.EmailAddress)]
+	[MaxLength(32)]
+	public required string Email { get; set; }
 
-        [DataType(DataType.DateTime)]
-        public DateTime Created { get; set; }
-    }
+	[Display(Name = "Địa chỉ")]
+	[DataType(DataType.Text)]
+	[MaxLength(128)]
+	public required string Address { get; set; }
+
+	[DataType(DataType.Text)]
+	[MaxLength(8)]
+	public required string Role { get; set; } = ROLE_USER;
+
+	[DataType(DataType.DateTime)]
+	public DateTime Created { get; set; }
 }

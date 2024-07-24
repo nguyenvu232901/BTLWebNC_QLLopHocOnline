@@ -1,6 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BTLWebNC_QLLopHocOnline.Models
 {
@@ -8,11 +12,12 @@ namespace BTLWebNC_QLLopHocOnline.Models
     [PrimaryKey(nameof(Id))]
     public class QuizModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required int Id { get; set; }
+      [Key]
+      [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+      public required int Id { get; set; }
 
-        [Range(0.01, double.MaxValue, ErrorMessage = "Passing grade must be greater than 0")]
-        public required double PassingGrade { get; set; }
+      [Range(0.01, double.MaxValue, ErrorMessage = "Passing grade must be greater than 0")]
+      public required double PassingGrade { get; set; }
+
     }
 }

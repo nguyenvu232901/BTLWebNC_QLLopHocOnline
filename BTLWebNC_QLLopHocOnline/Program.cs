@@ -17,7 +17,13 @@ if (!EnvReader.TryGetStringValue("CONNECTION_STRING", out var connectionString))
     connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, sqlServerOptionsAction: sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null);
+    }));
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ISessionService, SessionService>();
@@ -32,6 +38,8 @@ builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
     options.Cookie.Name = "Session";
 });
+
+
 
 #if DEBUG
 builder.Services.AddSassCompiler();
@@ -58,6 +66,6 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+    pattern: "{controller=Login}/{action=Index}");
 
 app.Run();

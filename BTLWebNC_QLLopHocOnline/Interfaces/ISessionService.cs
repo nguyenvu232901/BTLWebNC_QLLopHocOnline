@@ -1,9 +1,7 @@
-﻿using BTLWebNC_QLLopHocOnline.Models;
+using BTLWebNC_QLLopHocOnline.Models;
 
-namespace BTLWebNC_QLLopHocOnline.Interfaces
-{
-    public interface ISessionService
-    {
-        UserModel? CurrentUser();
-    }
+namespace BTLWebNC_QLLopHocOnline.Interfaces;
+
+public interface ISessionService {
+    UserModel? CurrentUser();
 }

@@ -23,7 +23,6 @@
             <th>STT</th>
             <th>Tên tài khoản</th>
             <th>Họ tên</th>
-            <th>Mật Khẩu</th>
             <th>Email</th>
             <th>Địa chỉ</th>
             <th>Vai trò</th>
@@ -37,16 +36,19 @@
                 <td>@(Model.IndexOf(item) + 1)</td>
                 <td>@item.Username</td>
                 <td>@item.Name</td>
-                <td>@item.Password</td>
                 <td>@item.Email</td>
                 <td>@item.Address</td>
                 <td>@item.Role</td>
-                <td><a href='#' class='btn btn-warning'>Sửa</a> | <a href='#' class='btn btn-danger'>Xóa</a></td>
+                <td>
+                    <button class='btn btn-warning' onclick="editUser('@item.Id')">Sửa</button>
+                    <button class='btn btn-danger' onclick="deleteUser('@item.Id')">Xóa</button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
-<!-- Modal -->
+
+<!-- Edit User Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -57,8 +59,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Form để chỉnh sửa thông tin người dùng -->
-                <form id="editUserForm">
+                <form id="editUserForm" onsubmit="submitEditUserForm(event)">
+                    <input type="hidden" id="editUserId" name="Id">
                     <div class="form-group">
                         <label for="editUsername">Tên tài khoản</label>
                         <input type="text" class="form-control" id="editUsername" name="Username" required>
@@ -98,7 +100,6 @@
             type: 'GET',
             data: { query: searchQuery },
             success: function (data) {
-                // Cập nhật nội dung của bảng với kết quả tìm kiếm
                 $('#show_data').html(data);
             },
             error: function (xhr, status, error) {
@@ -106,5 +107,66 @@
                 alert("Đã xảy ra lỗi khi tìm kiếm người dùng.");
             }
         });
+    }
+
+    function editUser(id) {
+        $.ajax({
+            url: '/admin/getuser/' + id,
+            type: 'GET',
+            success: function (data) {
+                $('#editUserId').val(data.id);
+                $('#editUsername').val(data.username);
+                $('#editName').val(data.name);
+                $('#editEmail').val(data.email);
+                $('#editAddress').val(data.address);
+                $('#editRole').val(data.role);
+                $('#editUserModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                alert("Đã xảy ra lỗi khi lấy thông tin người dùng.");
+            }
+        });
+    }
+
+    function submitEditUserForm(event) {
+        event.preventDefault();
+        var formData = $('#editUserForm').serialize();
+        $.ajax({
+            url: '/admin/edituser',
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert("Đã xảy ra lỗi khi cập nhật thông tin người dùng.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                alert("Đã xảy ra lỗi khi cập nhật thông tin người dùng.");
+            }
+        });
+    }
+
+    function deleteUser(id) {
+        if (confirm("Bạn có chắc chắn muốn xóa người dùng này không?")) {
+            $.ajax({
+                url: '/admin/deleteuser/' + id,
+                type: 'DELETE',
+                success: function (data) {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert("Đã xảy ra lỗi khi xóa người dùng.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Đã xảy ra lỗi khi xóa người dùng.");
+                }
+            });
+        }
     }
 </script>

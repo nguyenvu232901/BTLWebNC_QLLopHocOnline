@@ -107,29 +107,37 @@ namespace BTLWebNC_QLLopHocOnline.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Activities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InstanceId = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Activities", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Activities_Courses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                 name: "Activities",
+                 columns: table => new
+                 {
+                     Id = table.Column<int>(type: "int", nullable: false)
+                         .Annotation("SqlServer:Identity", "1, 1"),
+                     CourseId = table.Column<int>(type: "int", nullable: false),
+                     QuizId = table.Column<int>(type: "int", nullable: false), // Add this if needed
+                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                     InstanceId = table.Column<int>(type: "int", nullable: false),
+                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                     Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                 },
+                 constraints: table =>
+                 {
+                     table.PrimaryKey("PK_Activities", x => x.Id);
+                     table.ForeignKey(
+                         name: "FK_Activities_Courses_CourseId",
+                         column: x => x.CourseId,
+                         principalTable: "Courses",
+                         principalColumn: "Id",
+                         onDelete: ReferentialAction.Cascade);
+                     table.ForeignKey(
+                         name: "FK_Activities_Quiz_QuizId", // Ensure this line matches the intended relationship
+                         column: x => x.QuizId,
+                         principalTable: "Quiz",
+                         principalColumn: "Id",
+                         onDelete: ReferentialAction.Cascade);
+                 });
+
 
             migrationBuilder.CreateTable(
                 name: "QuizQuestions",

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CourseModel>
+
+@{
+    ViewData["Title"] = "Trang Chủ";
+    UserModel user = ViewBag.User;
+}
+
+<div class="container">
+    <div class="page-header">
+        <h2 class="title">Các Khóa Học</h2>
+
+        <span class="actions">
+            <a asp-action="SelfEnrollCourseView" asp-controller="Course" asp-active-route class="btn btn-outline-primary">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span>Tham Gia Khóa Học</span>
+            </a>
+
+            @if (user.Role == UserModel.ROLE_TEACHER || user.Role == UserModel.ROLE_ADMIN)
+            {
+                <a asp-action="CreateCourseView" asp-controller="Course" asp-active-route class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Tạo Khóa Học</span>
+                </a>
+            }
+        </span>
+    </div>
+
+    <div class="page-content">
+        <div class="course-grid" style="    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));">
+            @foreach (var item in Model)
+            {
+                <div class="course-card">
+                    <a asp-action="ViewCourse" asp-controller="Course" asp-route-id="@item.Id">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <div class="name">@item.Name</div>
+                            <div class="code">@item.Code</div>
+                        </div>
+                    </a>
+                    @if (user.Role == UserModel.ROLE_TEACHER || user.Role == UserModel.ROLE_ADMIN)
+                    {
+                        <button class="btn btn-outline-danger btn-delete-course" data-course-id="@item.Id">
+                            <i class="fa-solid fa-trash"></i> Xóa
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @* Generate AntiForgeryToken *@
+    @Html.AntiForgeryToken()
+
+    <script>
+        document.querySelectorAll('.btn-delete-course').forEach(button => {
+            button.addEventListener('click', async function () {
+                const courseId = this.getAttribute('data-course-id');
+                if (confirm('Bạn có chắc chắn muốn xóa khóa học này không?')) {
+                    try {
+                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                        const response = await fetch(`/Course/Delete/${courseId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': token
+                            }
+                        });
+                        if (response.ok) {
+                            alert('Xóa khóa học thành công!');
+                            location.reload();
+                        } else {
+                            const errorText = await response.text();
+                            alert(`Xóa khóa học thất bại: ${errorText}`);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Đã xảy ra lỗi!');
+                    }
+                }
+            });
+        });
+
+    </script>
+}

@@ -41,7 +41,7 @@ namespace BTLWebNC_QLLopHocOnline.Controllers
     {
       if (model.Activity.StartDate >= DateTime.UtcNow && model.Activity.EndDate > model.Activity.StartDate)
       {
-        MeetingModel meeting = new MeetingModel
+        var meeting = new MeetingModel
         {
           Id = model.Meeting.Id,
           url = model.Meeting.url
@@ -50,7 +50,7 @@ namespace BTLWebNC_QLLopHocOnline.Controllers
         DB.SaveChanges();
         int meetingId = meeting.Id;
 
-        ActivityModel activity = new ActivityModel
+        var activity = new ActivityModel
         {
           Id = model.Activity.Id,
           CourseId = model.Activity.CourseId,

@@ -27,6 +27,23 @@
                             <img src="~/img/logo.png" height="32" class="d-inline-block align-top" alt="">
                         </a>
 
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" asp-action="Index" asp-controller="Home">Trang Chủ</a>
+                            <a class="nav-item nav-link" asp-action="Calendar" asp-controller="Home">Lịch</a>
+                            <a class="nav-item nav-link" asp-action="SelfEnrollCourseView" asp-controller="Course">Tham Gia Khóa Học</a>
+
+                            @if (user.Role == UserModel.ROLE_TEACHER || user.Role == UserModel.ROLE_ADMIN) {
+                                <a class="nav-item nav-link" asp-action="CreateCourseView" asp-controller="Course">Tạo Khóa Học</a>
+                            }
+
+                            @if (user.Role == UserModel.ROLE_ADMIN) {
+                                <a class="nav-item nav-link" asp-action="Accounts" asp-controller="Admin">Quản Lý Tài Khoản</a>
+                                <a class="nav-item nav-link" asp-action="Courses" asp-controller="Admin">Quản Lý Khóa Học</a>
+                            }
+
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="NewPage">New Page</a>
+                    </div>
+
                         <span class="navbar-text nav-user-info">
                             <img src="@imageUrl" class="user-image" />
 
@@ -35,7 +52,7 @@
                             </a>
 
                             <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index" asp-route-id="@user.Id">Hồ sơ</a></li>
+                                <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index" asp-route-id="@user.Id">Hồ sơ</a></li>
                                 <li><a class="dropdown-item" href="#">Điểm</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" asp-action="Logout" asp-controller="Login">Đăng xuất</a></li>
@@ -46,46 +63,6 @@
             </header>
 
             <div class="main">
-                <span class="menu">
-                    <a asp-action="Index" asp-controller="Home" asp-active-route class="menu-item">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Trang Chủ</span>
-                    </a>
-
-                    <a asp-action="Calendar" asp-controller="Home" asp-active-route class="menu-item">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <span>Lịch</span>
-                    </a>
-
-                    <a asp-action="SelfEnrollCourseView" asp-controller="Course" asp-active-route class="menu-item">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span>Tham Gia Khóa Học</span>
-                    </a>
-
-                    @if (user.Role == UserModel.ROLE_TEACHER || user.Role == UserModel.ROLE_ADMIN) {
-                        <div role="separator"></div>
-
-                        <a asp-action="CreateCourseView" asp-controller="Course" asp-active-route class="menu-item">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Tạo Khóa Học</span>
-                        </a>
-                    }
-
-                    @if (user.Role == UserModel.ROLE_ADMIN) {
-                        <div role="separator"></div>
-
-                        <a asp-action="Accounts" asp-controller="Admin" asp-active-route class="menu-item">
-                            <i class="fa-solid fa-circle-user"></i>
-                            <span>Quản Lý Tài Khoản</span>
-                        </a>
-
-                        <a asp-action="Courses" asp-controller="Admin" asp-active-route class="menu-item">
-                            <i class="fa-solid fa-chalkboard"></i>
-                            <span>Quản Lý Khóa Học</span>
-                        </a>
-                    }
-                </span>
-
                 <span class="content">
                     @RenderBody()
                 </span>

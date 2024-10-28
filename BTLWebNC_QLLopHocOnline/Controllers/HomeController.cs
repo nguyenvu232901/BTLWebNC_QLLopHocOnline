@@ -7,21 +7,26 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace BTLWebNC_QLLopHocOnline.Controllers;
 
-public class HomeController(DatabaseContext DB, ISessionService Session) : BaseController(DB) {
+public class HomeController(DatabaseContext DB, ISessionService Session) : BaseController(DB)
+{
 
     [HttpGet]
     [Route("/")]
-    public IActionResult Index() {
+    public IActionResult Index()
+    {
         var user = Session.CurrentUser();
 
         if (user == null)
             return RedirectToAction("LoginPage", "Login");
 
         List<CourseModel> courses;
-        
-        if (user.Role == UserModel.ROLE_ADMIN) {
+
+        if (user.Role == UserModel.ROLE_ADMIN)
+        {
             courses = DB.Courses.ToList();
-        } else {
+        }
+        else
+        {
             var query = from c in DB.Set<CourseModel>()
                         join eu in DB.Set<CourseUserModel>()
                             on c.Id equals eu.CourseId
@@ -36,18 +41,73 @@ public class HomeController(DatabaseContext DB, ISessionService Session) : BaseC
 
     [HttpGet]
     [Route("/calendar")]
-    public IActionResult Calendar() {
+    public IActionResult Calendar()
+    {
         return View();
     }
 
     [HttpGet]
     [Route("/sandbox")]
-    public IActionResult Sandbox() {
+    public IActionResult Sandbox()
+    {
         return View();
     }
 
+    [HttpGet]
+    [Route("/newpage")]
+    public IActionResult NewPage()
+    {
+        var user = Session.CurrentUser();
+
+        if (user == null)
+            return RedirectToAction("LoginPage", "Login");
+
+        List<CourseModel> courses;
+
+        if (user.Role == UserModel.ROLE_ADMIN)
+        {
+            courses = DB.Courses.ToList();
+        }
+        else
+        {
+            var query = from c in DB.Set<CourseModel>()
+                        join eu in DB.Set<CourseUserModel>()
+                            on c.Id equals eu.CourseId
+                        where eu.UserId == user.Id
+                        select c;
+
+            courses = query.ToList();
+        }
+
+        return View(courses);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error() {
+    public IActionResult Error()
+    {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+
+
+    [HttpDelete]
+    [Route("/Course/Delete/{id}")]
+    [ValidateAntiForgeryToken] // Ensure this attribute is present
+    public IActionResult DeleteCourse(int id)
+    {
+        var course = DB.Courses.Find(id);
+        if (course == null)
+        {
+            return NotFound();
+        }
+
+        DB.Courses.Remove(course);
+        DB.SaveChanges();
+
+        return Ok();
+    }
+
 }
+
+
+

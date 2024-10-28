@@ -1,91 +1,169 @@
-﻿#login-page {
-    background-color: #f0f4f9
+﻿/* Đặt màu nền cho trang đăng nhập */
+#login-page {
+    background-color: #f0f4f9;
 }
 
+    /* Wrapper chính của trang đăng nhập */
     #login-page > .login-wrapper {
         display: flex;
         flex-direction: column;
         justify-content: center;
         padding: 3rem;
         min-height: 100vh;
-        box-sizing: border-box
+        box-sizing: border-box;
+    }
+
+        /* Card chính chứa nội dung đăng nhập */
+        #login-page > .login-wrapper > .login-card {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            padding: 2.25rem;
+            border-radius: 1.75rem;
+            background-color: white;
+            width: 90%;
+            max-width: 52.5rem;
+        }
+
+            /* Phần nội dung bên trong card */
+            #login-page > .login-wrapper > .login-card > .login-content {
+                display: flex;
+                flex-direction: column;
+            }
+
+                /* Phần tiêu đề đăng nhập */
+                #login-page > .login-wrapper > .login-card > .login-content > .login-header > .logo {
+                    height: 3rem;
+                    margin-bottom: 1rem;
+                }
+
+                /* Tiêu đề chính */
+                #login-page > .login-wrapper > .login-card > .login-content > .login-header > h1 {
+                    margin: 1.5rem 0 0;
+                    font-size: 2.25rem;
+                    font-weight: 400;
+                    color: #1f1f1f;
+                }
+
+                /* Mô tả đăng nhập */
+                #login-page > .login-wrapper > .login-card > .login-content > .login-header > .description {
+                    margin-top: 1rem;
+                }
+
+                /* Form đăng nhập */
+                #login-page > .login-wrapper > .login-card > .login-content > .login-form {
+                    margin-top: 4.5rem;
+                }
+
+                    /* Các hành động trong form */
+                    #login-page > .login-wrapper > .login-card > .login-content > .login-form .form-actions {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1.5rem;
+                        margin-top: 2rem;
+                    }
+
+        /* Footer của trang đăng nhập */
+        #login-page > .login-wrapper > footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+
+            /* Style cho các nút trong footer */
+            #login-page > .login-wrapper > footer > .btn {
+                font-size: 0.75rem;
+                color: #007bff;
+            }
+
+/* Nút button */
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 1.25rem;
+    transition: color .28s cubic-bezier(.4, 0, .2, 1), background-color .28s cubic-bezier(.4, 0, .2, 1), border-color .28s cubic-bezier(.4, 0, .2, 1), box-shadow .28s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Responsive Styles */
+
+/* Mobile Devices */
+@media (max-width: 576px) {
+    #login-page > .login-wrapper {
+        padding: 1rem;
     }
 
         #login-page > .login-wrapper > .login-card {
-            display: flex;
-            flex-direction: row;
-            margin: 0 auto;
-            padding: 2.25rem 2.25rem 1.5rem;
-            border-radius: 1.75rem;
-            width: 52.5rem;
-            min-height: 24rem;
-            background-color: #fff
+            padding: 1.5rem;
+            width: 100%;
+            border-radius: 1rem;
         }
 
-            #login-page > .login-wrapper > .login-card > .login-content {
-                display: flex;
-                flex-direction: row;
-                flex-grow: 1;
-                gap: 3rem
+            #login-page > .login-wrapper > .login-card > .login-content > .login-header > h1 {
+                font-size: 1.75rem;
             }
 
-                #login-page > .login-wrapper > .login-card > .login-content > div {
-                    flex-grow: 1;
-                    flex-basis: 0
-                }
+            #login-page > .login-wrapper > .login-card > .login-content > .login-form .form-actions {
+                flex-direction: column;
+            }
 
-                #login-page > .login-wrapper > .login-card > .login-content > .login-header > .logo {
-                    height: 3rem
-                }
-
-                #login-page > .login-wrapper > .login-card > .login-content > .login-header > h1 {
-                    margin-top: 1.5rem;
-                    margin-bottom: 0;
-                    font-size: 2.25rem;
-                    font-weight: 400;
-                    line-height: 1.22222222;
-                    color: #1f1f1f
-                }
-
-                #login-page > .login-wrapper > .login-card > .login-content > .login-header > .description {
-                    margin-top: 1rem
-                }
-
-                #login-page > .login-wrapper > .login-card > .login-content > .login-form {
-                    margin-top: 4.5rem
-                }
-
-                    #login-page > .login-wrapper > .login-card > .login-content > .login-form .form-actions {
-                        display: flex;
-                        flex-direction: row;
-                        gap: 1.5rem;
-                        justify-content: flex-end
-                    }
+            #login-page > .login-wrapper > .login-card > .login-content > .login-form .btn {
+                font-size: 0.75rem; /* Reduced button size for mobile */
+                padding: 0.5rem 1rem; /* Adjusted padding for better appearance on mobile */
+            }
 
         #login-page > .login-wrapper > footer {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            margin: 1rem auto 0;
-            padding: 0 1rem;
-            width: 52.5rem;
-            font-size: .75rem;
-            font-weight: 400;
-            letter-spacing: .00625rem;
-            line-height: 1.33333333
+            font-size: 0.65rem;
+        }
+}
+
+/* Tablet Devices */
+@media (min-width: 577px) and (max-width: 1024px) {
+    #login-page > .login-wrapper {
+        padding: 2rem;
+    }
+
+        #login-page > .login-wrapper > .login-card {
+            width: 90%;
+            max-width: 40rem;
         }
 
-            #login-page > .login-wrapper > footer > div {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                gap: 2rem
+            #login-page > .login-wrapper > .login-card > .login-content > .login-header > h1 {
+                font-size: 2rem;
             }
 
-                #login-page > .login-wrapper > footer > div > .btn {
-                    font-size: .75rem;
-                    font-weight: 400;
-                    letter-spacing: .00625rem;
-                    line-height: 1.33333333
-                }
-/*# sourceMappingURL=login.css.map */
+            #login-page > .login-wrapper > .login-card > .login-content > .login-form .form-actions {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+}
+
+/* Desktop Devices */
+@media (min-width: 1025px) {
+    #login-page > .login-wrapper > .login-card {
+        width: 52.5rem;
+        padding: 2.25rem;
+        border-radius: 1.75rem;
+    }
+
+        #login-page > .login-wrapper > .login-card > .login-content > .login-header > h1 {
+            font-size: 2.25rem;
+        }
+
+        #login-page > .login-wrapper > .login-card > .login-content > .login-form .form-actions {
+            flex-direction: row;
+            gap: 2rem; /* Increased gap for better spacing */
+            justify-content: flex-end;
+        }
+
+        #login-page > .login-wrapper > .login-card > .login-content > .login-form .btn {
+            font-size: 1rem; /* Increased button size for desktop */
+            padding: 0.75rem 1.5rem; /* Adjusted padding for better appearance */
+        }
+}

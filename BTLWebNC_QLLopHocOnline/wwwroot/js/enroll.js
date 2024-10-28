@@ -1,4 +1,4 @@
-﻿const modal = document.getElementById("enroll-user-modal");
+const modal = document.getElementById("enroll-user-modal");
 const input = document.getElementById("enroll-user-select");
 const confirmButton = document.getElementById("enroll-confirm");
 

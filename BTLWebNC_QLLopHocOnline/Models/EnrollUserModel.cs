@@ -1,9 +1,7 @@
-﻿namespace BTLWebNC_QLLopHocOnline.Models
-{
-    public class EnrollUserModel
-    {
-        public required int UserId { get; set; }
+namespace BTLWebNC_QLLopHocOnline.Models;
 
-        public required string Role { get; set; }
-    }
+public class EnrollUserModel {
+	public required int UserId { get; set; }
+
+	public required string Role { get; set; }
 }

@@ -3,10 +3,10 @@
 
 // Write your JavaScript code.
 document.addEventListener('DOMContentLoaded', function () {
-    var addActivityBtn = document.getElementById('addActivityBtn');
-    var activityModal = new bootstrap.Modal(document.getElementById('activityModal'));
+  var addActivityBtn = document.getElementById('addActivityBtn');
+  var activityModal = new bootstrap.Modal(document.getElementById('activityModal'));
 
-    addActivityBtn.addEventListener('click', function () {
-        activityModal.show();
-    });
+  addActivityBtn.addEventListener('click', function () {
+      activityModal.show();
+  });
 });

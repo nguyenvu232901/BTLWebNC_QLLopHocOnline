@@ -1,29 +1,27 @@
-﻿using BTLWebNC_QLLopHocOnline.Models;
+using BTLWebNC_QLLopHocOnline.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BTLWebNC_QLLopHocOnline.Databases
-{
-    public class DatabaseContext : DbContext
-    {
-        public DbSet<UserModel> Users { get; set; }
+namespace BTLWebNC_QLLopHocOnline.Databases;
 
-        public DbSet<CourseModel> Courses { get; set; }
+public class DatabaseContext : DbContext {
 
-        public DbSet<CourseUserModel> CourseUsers { get; set; }
-        public DbSet<AssignmentModel> Assignment { get; set; }
-        public DbSet<MeetingModel> Meeting { get; set; }
-        public DbSet<ActivityModel> Activities { get; set; }
-        public DbSet<AssignmentSubmissionModel> AssignmentSubmissions { get; set; }
-        public DbSet<QuizModel> Quiz { get; set; }
-        public DbSet<QuizQuestionModel> QuizQuestions { get; set; }
-        public DbSet<QuizAttemptModel> QuizAttempts { get; set; }
-        public DbSet<QuizAttemptDetailModel> QuizAttemptDetails { get; set; }
+    public DbSet<UserModel> Users { get; set; }
 
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
+	public DbSet<CourseModel> Courses { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+	public DbSet<CourseUserModel> CourseUsers { get; set; }
+	public DbSet<AssignmentModel> Assignment { get; set; }
+	public DbSet<MeetingModel> Meeting { get; set; }
+	public DbSet<ActivityModel> Activities { get; set; }
+	public DbSet<AssignmentSubmissionsModel> AssignmentSubmissions { get; set; }
+	public DbSet<QuizModel> Quiz { get; set; }
+	public DbSet<QuizQuestionModel> QuizQuestions { get; set; }
+	public DbSet<QuizAttemptModel> QuizAttempts { get; set; }
+	public DbSet<QuizAttemptDetailModel> QuizAttemptDetails { get; set; }
 
-        }
+	public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) {}
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
+		
     }
 }

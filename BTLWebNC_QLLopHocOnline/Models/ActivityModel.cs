@@ -1,27 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BTLWebNC_QLLopHocOnline.Models
 {
+
     [Table("Activities")]
-    [PrimaryKey(nameof(IdentityApiEndpointRouteBuilderExtensions))]
+    [PrimaryKey(nameof(Id))]
     public class ActivityModel
     {
-        public const string TYPE_QUIZ = "quiz";
-        public const string TYPE_ASSIGNMENT = "assignment";
-        public const string TYPE_MEETING = "meeting";
+    	public const string TYPE_QUIZ = "quiz";
+        public const string  TYPE_ASSIGNMENT = "assignment";
+        public const string   TYPE_MEETING = "meeting";
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required int Id { get; set; }
+        public required int Id { get; set; } 
 
         [ForeignKey(nameof(Course))]
-        public required int CourseId { get; set; }
-        public required CourseModel Course { get; set; }
-
+        public required int CourseId { get; set; } 
+         public required CourseModel Course { get; set; }
+    
         public required string Name { get; set; }
 
-        public required string Type { get; set; } = TYPE_MEETING; // Assuming Type can be either "quiz", "assignment", or "meeting"
+        public required string Type { get; set; }=TYPE_MEETING; // Assuming Type can be either "quiz", "assignment", or "meeting"
 
         public required int InstanceId { get; set; }
 

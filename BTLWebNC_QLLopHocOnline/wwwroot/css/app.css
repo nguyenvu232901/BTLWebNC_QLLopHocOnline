@@ -1,94 +1,186 @@
-﻿#app {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100svh;
-    overflow: hidden
+@charset "UTF-8";
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+}
+#app > header {
+  flex-shrink: 0;
+}
+#app > header > nav > .container-fluid {
+  --bs-gutter-x: 3rem;
+}
+#app > .main {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow: hidden;
+}
+#app > .main > .menu {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 18.75rem;
+  padding-top: 0.5rem;
+  border-right: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
+#app > .main > .menu > .menu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 2.5rem;
+  padding: 0 1rem;
+  margin-right: 1.25rem;
+  text-decoration: none;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  color: #3c4043;
+}
+#app > .main > .menu > .menu-item:hover {
+  background-color: rgba(32, 33, 36, 0.04);
+}
+#app > .main > .menu > .menu-item.active {
+  background-color: rgba(26, 115, 232, 0.12);
+}
+#app > .main > .menu > .menu-item > i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.5rem;
+}
+#app > .main > .menu > .menu-item > span {
+  display: block;
+  margin-left: 1rem;
+  margin-top: 0.2em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  letter-spacing: 0.01785714em;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: #3c4043;
+}
+#app > .main > .menu > div[role=separator] {
+  height: 0;
+  margin: 0.5rem 0;
+  border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
+#app > .main > .content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
+}
+#app > .main > .content > .container {
+  --bs-gutter-x: 4rem;
 }
 
-    #app > header {
-        flex-shrink: 0
-    }
+/* Đảm bảo rằng tất cả các phần tử có kích thước hợp lý trên màn hình nhỏ */
+.container, .page-header, .page-content, .course-grid {
+  padding: 15px;
+  margin: 0 auto;
+  max-width: 100%;
+}
 
-        #app > header > nav > .container-fluid {
-            --bs-gutter-x: 3rem
-        }
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    #app > .main {
-        display: flex;
-        flex-direction: row;
-        flex-grow: 1;
-        overflow: hidden
-    }
+.actions a {
+  margin: 0 5px;
+}
 
-        #app > .main > .menu {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 0;
-            flex-shrink: 0;
-            width: 18.75rem;
-            padding-top: .5rem;
-            border-right: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)
-        }
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
 
-            #app > .main > .menu > .menu-item {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                height: 2.5rem;
-                padding: 0 1rem;
-                margin-right: 1.25rem;
-                text-decoration: none;
-                border-top-right-radius: 2rem;
-                border-bottom-right-radius: 2rem;
-                color: #3c4043
-            }
+.course-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
 
-                #app > .main > .menu > .menu-item:hover {
-                    background-color: rgba(32,33,36,.04)
-                }
+.card-img {
+  height: 150px;
+  background-color: #f5f5f5;
+}
 
-                #app > .main > .menu > .menu-item.active {
-                    background-color: rgba(26,115,232,.12)
-                }
+.card-body {
+  padding: 15px;
+}
 
-                #app > .main > .menu > .menu-item > i {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex: 0 0 auto;
-                    width: 2.5rem
-                }
+.navbar {
+  flex-wrap: wrap;
+}
 
-                #app > .main > .menu > .menu-item > span {
-                    display: block;
-                    margin-left: 1rem;
-                    margin-top: .2em;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    letter-spacing: .01785714em;
-                    font-size: .875rem;
-                    font-weight: 500;
-                    line-height: 1.25rem;
-                    color: #3c4043
-                }
+.navbar-text {
+  display: flex;
+  align-items: center;
+}
 
-            #app > .main > .menu > div[role=separator] {
-                height: 0;
-                margin: .5rem 0;
-                border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)
-            }
+.user-image {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
 
-        #app > .main > .content {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            overflow: auto
-        }
+.menu {
+  display: flex;
+  flex-direction: column;
+}
 
-            #app > .main > .content > .container {
-                --bs-gutter-x: 4rem
-            }
+.menu-item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu-item i {
+  margin-right: 10px;
+}
+
+.content {
+  padding: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    height: 24px;
+  }
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .actions a {
+    display: block;
+    margin: 5px 0;
+  }
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 576px) {
+  .menu-item {
+    font-size: 14px;
+  }
+}
+
 /*# sourceMappingURL=app.css.map */

@@ -1,4 +1,4 @@
-﻿// Assuming courseId is known
+// Assuming courseId is known
 var courseId = document.getElementById('form-input-course-id').value;
 var listActivitiesContainer = document.getElementById('list-activities');
 var url = `/course/${courseId}/activities?orderBy=startDate&sortBy=desc`;

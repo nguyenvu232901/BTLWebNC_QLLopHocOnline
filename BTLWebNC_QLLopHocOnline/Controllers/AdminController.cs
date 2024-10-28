@@ -1,66 +1,129 @@
-﻿using BTLWebNC_QLLopHocOnline.Databases;
-using BTLWebNC_QLLopHocOnline.Models;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using BTLWebNC_QLLopHocOnline.Models;
+using BTLWebNC_QLLopHocOnline.Databases;
 using Microsoft.EntityFrameworkCore;
 
-namespace BTLWebNC_QLLopHocOnline.Controllers
+namespace BTLWebNC_QLLopHocOnline.Controllers;
+
+public class AdminController : BaseController
 {
-    public class AdminController : BaseController
+    private readonly DatabaseContext _context;
+
+    public AdminController(DatabaseContext context) : base(context)
     {
+        _context = context;
+    }
 
-        private readonly DatabaseContext _context;
+    [HttpGet]
+    [Route("/admin/accounts")]
+    public IActionResult Accounts()
+    {
+        var results = _context.Users.ToList();
+        return View(results);
+    }
 
-        public AdminController(DatabaseContext context) : base(context)
+    [HttpGet("/admin/getdata")]
+    public async Task<IActionResult> GetData()
+    {
+        var results = await _context.Users.ToListAsync();
+        return new JsonResult(new { Data = results, TotalItems = results.Count });
+    }
+
+    [HttpPost("/admin/create")]
+    public async Task<IActionResult> Create(UserModel model)
+    {
+        model.Created = DateTime.Now;
+        _context.Users.Add(model);
+        try
         {
-            _context = context;
+            await _context.SaveChangesAsync();
+            return Ok(new { success = true });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            return Ok(new { success = false });
+        }
+    }
+
+    [HttpGet("/admin/search")]
+    public IActionResult Search(string query)
+    {
+        var users = _context.Users.Where(u =>
+            u.Username.Contains(query) ||
+            u.Name.Contains(query) ||
+            u.Email.Contains(query) ||
+            u.Address.Contains(query) ||
+            u.Role.Contains(query)
+        ).ToList();
+        return PartialView("_UserTablePartial", users);
+    }
+
+    [HttpGet("/admin/getuser/{id}")]
+    public async Task<IActionResult> GetUser(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        return new JsonResult(user);
+    }
+
+    [HttpPost("/admin/edituser")]
+    public async Task<IActionResult> EditUser(UserModel model)
+    {
+        var user = await _context.Users.FindAsync(model.Id);
+        if (user == null)
+        {
+            return NotFound();
         }
 
-        [HttpGet]
-        [Route("/admin/accounts")]
-        public IActionResult Accounts()
+        user.Username = model.Username;
+        user.Name = model.Name;
+        user.Email = model.Email;
+        user.Address = model.Address;
+        user.Role = model.Role;
+
+        try
         {
-            var results = _context.Users.ToList();
-            return View(results);
+            await _context.SaveChangesAsync();
+            return Ok(new { success = true });
         }
-        [HttpGet("/admin/getdata")]
-        public async Task<IActionResult> GetData()
+        catch (Exception ex)
         {
-            var results = await _context.Users.ToListAsync();
-            return new JsonResult(new { Data = results, TotalItems = results.Count });
+            Console.WriteLine(ex);
+            return Ok(new { success = false });
         }
-        [HttpPost("/admin/create")]
-        public async Task<IActionResult> Create(UserModel model)
+    }
+
+    [HttpDelete("/admin/deleteuser/{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
         {
-            model.Created = DateTime.Now;
-            _context.Users.Add(model);
-            try
-            {
-                await _context.SaveChangesAsync();
-                return Ok(new { success = true });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return Ok(new { success = false });
-            }
+            return NotFound();
         }
-        [HttpGet("/admin/search")]
-        public IActionResult Search(string query)
+
+        _context.Users.Remove(user);
+        try
         {
-            var users = _context.Users.Where(u =>
-                u.Username.Contains(query) ||
-                u.Name.Contains(query) ||
-                u.Email.Contains(query) ||
-                u.Address.Contains(query) ||
-                u.Role.Contains(query)
-            ).ToList();
-            return PartialView("_UserTablePartial", users);
+            await _context.SaveChangesAsync();
+            return Ok(new { success = true });
         }
-        [HttpGet]
-        [Route("/admin/courses")]
-        public IActionResult Courses()
+        catch (Exception ex)
         {
-            return View("Courses");
+            Console.WriteLine(ex);
+            return Ok(new { success = false });
         }
+    }
+
+    [HttpGet]
+    [Route("/admin/courses")]
+    public IActionResult Courses()
+    {
+        return View("Courses");
     }
 }

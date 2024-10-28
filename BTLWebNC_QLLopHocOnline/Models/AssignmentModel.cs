@@ -1,15 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BTLWebNC_QLLopHocOnline.Models
 {
+
     [Table("Assignment")]
     [PrimaryKey(nameof(Id))]
     public class AssignmentModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+      [Key]
+      [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public required int Id { get; set; }           // Primary key
         public required string Description { get; set; }
         public required double PassingGrade { get; set; }

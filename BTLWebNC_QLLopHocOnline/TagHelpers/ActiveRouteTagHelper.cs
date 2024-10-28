@@ -1,42 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace BTLWebNC_QLLopHocOnline.TagHelpers
-{
-    [HtmlTargetElement(Attributes = "asp-active-route")]
-    public class ActiveRouteTagHelper : TagHelper
-    {
-        [HtmlAttributeNotBound]
-        [ViewContext]
-        public required ViewContext ViewContext { get; set; }
+namespace BTLWebNC_QLLopHocOnline.TagHelpers;
 
-        [HtmlAttributeName("asp-controller")]
-        public required string Controller { get; set; }
+[HtmlTargetElement(Attributes = "asp-active-route")]
+public class ActiveRouteTagHelper : TagHelper {
+	[HtmlAttributeNotBound]
+	[ViewContext]
+	public required ViewContext ViewContext { get; set; }
 
-        [HtmlAttributeName("asp-action")]
-        public required string Action { get; set; }
+	[HtmlAttributeName("asp-controller")]
+	public required string Controller { get; set; }
 
-        [HtmlAttributeNotBound]
-        public string Class { get; set; } = "active";
+	[HtmlAttributeName("asp-action")]
+	public required string Action { get; set; }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            base.Process(context, output);
+	[HtmlAttributeNotBound]
+	public string Class { get; set; } = "active";
 
-            var currentController = (string?)ViewContext.RouteData.Values["controller"];
-            var currentAction = (string?)ViewContext.RouteData.Values["action"];
+	public override void Process(TagHelperContext context, TagHelperOutput output) {
+		base.Process(context, output);
 
-            if (string.Equals(Controller, currentController, StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(Action, currentAction, StringComparison.OrdinalIgnoreCase))
-            {
+        var currentController = (string?) ViewContext.RouteData.Values["controller"];
+		var currentAction = (string?) ViewContext.RouteData.Values["action"];
 
-                var existingClasses = output.Attributes.ContainsName("class")
-                    ? output.Attributes["class"].Value.ToString()
-                    : "";
+		if (string.Equals(Controller, currentController, StringComparison.OrdinalIgnoreCase) &&
+			string.Equals(Action, currentAction, StringComparison.OrdinalIgnoreCase)) {
 
-                output.Attributes.SetAttribute("class", $"{existingClasses} {Class}".Trim());
-            }
-        }
-    }
+			var existingClasses = output.Attributes.ContainsName("class")
+				? output.Attributes["class"].Value.ToString()
+				: "";
+			
+			output.Attributes.SetAttribute("class", $"{existingClasses} {Class}".Trim());
+		}
+	}
 }

@@ -18,13 +18,40 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Styles\" />
-    <Folder Include="Views\Activity\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Course\" />
-    <Folder Include="Views\Login\" />
-    <Folder Include="Views\Profile\" />
-    <Folder Include="wwwroot\img\" />
+    <None Include="wwwroot\css\app.css.map" />
+    <None Include="wwwroot\css\font.css.map" />
+    <None Include="wwwroot\css\login.css.map" />
+    <None Include="wwwroot\css\site.css.map" />
+    <None Include="wwwroot\js\courseActivity.js" />
+    <None Include="wwwroot\js\createAssignmentActivity.js" />
+    <None Include="wwwroot\js\enroll.js" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Styles\app.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Styles\font.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Styles\login.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Styles\site.scss" />
   </ItemGroup>
 
 </Project>
